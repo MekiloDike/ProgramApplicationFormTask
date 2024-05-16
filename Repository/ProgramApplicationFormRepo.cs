@@ -21,6 +21,7 @@ namespace ProgramApplicationFormTask.Repository
         {
             try
             {
+                //persist entity to database
                 var response = await _containerCreateProgram.CreateItemAsync(model, new PartitionKey(model.Id));
                 return response.Resource.Id;
 
@@ -59,6 +60,7 @@ namespace ProgramApplicationFormTask.Repository
         {
             try
             {
+                //get all the program questions
                 var query = new QueryDefinition("SELECT * FROM c WHERE c.ProgramId = @programId")
                     .WithParameter("@programId", programId);
 
@@ -108,6 +110,7 @@ namespace ProgramApplicationFormTask.Repository
         {
             try
             {
+                //persist the entity to db
                 var response = await _containerFilledForm.CreateItemAsync(applicationForm, new PartitionKey(programId));
                 return response.StatusCode == HttpStatusCode.Created;
 
@@ -123,12 +126,13 @@ namespace ProgramApplicationFormTask.Repository
         {
             try
             {
+                //get the program details to display
                 var response = await _containerCreateProgram.ReadItemAsync<ProgramModel>(programId, new PartitionKey(programId));
                 return response.Resource;
             }
             catch (CosmosException)
             {
-                return null;
+                throw;
             }
         }
     }

@@ -68,6 +68,7 @@ namespace ProgramApplicationFormTask.Controllers
             if (!questionDto.Any())
                 return BadRequest("Question cannot be null");
 
+            //check if the program still exists
             var existingQuestions = await _programApplicationRepo.GetProgramQuestion(programId);
             if (!existingQuestions.Any())
                 return NotFound();
