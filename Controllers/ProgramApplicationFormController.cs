@@ -19,6 +19,11 @@ namespace ProgramApplicationFormTask.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Creates a new program.
+        /// </summary>
+        /// <param name="programDto">The DTO containing the program data.</param>
+        /// <returns>The result of the program creation operation.</returns>
         [HttpPost("createProgram")]
         public async Task<IActionResult> CreateProgram([FromBody] ProgramDto programDto)
         {
@@ -27,6 +32,12 @@ namespace ProgramApplicationFormTask.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Creates questions for a program.
+        /// </summary>
+        /// <param name="questionDto">The DTOs containing the questions data.</param>
+        /// <param name="programId">The identifier of the program.</param>
+        /// <returns>The result of the question creation operation.</returns>
         [HttpPost("createProgramQuestions")]
         public async Task<IActionResult> CreateQuestions([FromBody] List<QuestionDto> questionDto, string programId)
         {
@@ -38,6 +49,11 @@ namespace ProgramApplicationFormTask.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Retrieves a program by its unique identifier.
+        /// </summary>
+        /// <param name="programId">The unique identifier of the program.</param>
+        /// <returns>The program information if found, or a 404 Not Found response if the program is not found.</returns>
         [HttpGet("getProgram/{id}")]
         public async Task<IActionResult> GetProgram(string programId)
         {
@@ -49,6 +65,12 @@ namespace ProgramApplicationFormTask.Controllers
             var programDto = _mapper.Map<ProgramDto>(program);
             return Ok(programDto);
         }
+
+        /// <summary>
+        /// Retrieves questions for a program by its unique identifier.
+        /// </summary>
+        /// <param name="programId">The unique identifier of the program.</param>
+        /// <returns>The list of questions for the program if found, or a 404 Not Found response if the program is not found.</returns>
 
         [HttpGet("getProgramQuestions/{id}")]
         public async Task<IActionResult> GetProgramQuestions(string programId)
@@ -62,6 +84,12 @@ namespace ProgramApplicationFormTask.Controllers
             return Ok(programQuestionDto);
         }
 
+        /// <summary>
+        /// Edits questions for a program.
+        /// </summary>
+        /// <param name="questionDto">The DTOs containing the questions data to be edited.</param>
+        /// <param name="programId">The identifier of the program.</param>
+        /// <returns>The result of the question editing operation.</returns>
         [HttpPut("editProgramQuestions/{id}")]
         public async Task<IActionResult> EditProgramApplicationForm([FromBody] List<QuestionDto> questionDto, string programId)
         {
@@ -81,6 +109,12 @@ namespace ProgramApplicationFormTask.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Fills and submits a program application form.
+        /// </summary>
+        /// <param name="programApplicationForm">The DTO containing the filled program application form data.</param>
+        /// <param name="programId">The identifier of the program.</param>
+        /// <returns>The result of the program application form submission operation.</returns>
         [HttpPost("fillAndSubmitForm")]
         public async Task<IActionResult> FillandSubmitProgramApplicationForm([FromBody] FillApplicationFormDto programApplicationForm, string programId)
         {
